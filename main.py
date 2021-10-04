@@ -73,7 +73,7 @@ def main():
                     lista_pp_string += str(pp) + ' '
                 print(lista_pp_string)
             else:
-                print(f'Nu exista ani bisecti intre anii {lim_sup} si {lim_inf}')
+                print(f'Nu exista patrate perfecte in intervalul [{lim_inf} ,{lim_sup}]')
         else:
             print('Optiune invalida!')
         optiune = input('Selectati actiunea dorita:')
