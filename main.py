@@ -40,11 +40,37 @@ def test_get_perfect_squares():
     assert get_perfect_squares(235, 236) == []
     assert get_perfect_squares(1232, 1643) == [1296, 1369, 1444, 1521, 1600]
 
+def get_temp(temperatura: float ,scara_originala: str, scara_de_conversie: str ):
+    #returneaza temperatura convertita din scara_originala in scara_de_conversie
+    if(scara_originala == 'K'):
+        if(scara_de_conversie == 'C'):
+            temperatura -= 273.15
+        elif(scara_de_conversie == 'F'):
+            temperatura = (temperatura - 273.15) * 9/5 + 32
+    elif(scara_originala == 'C'):
+        if(scara_de_conversie == 'F'):
+            temperatura = temperatura * 9/5 + 32
+        elif(scara_de_conversie == 'K'):
+            temperatura += 273.15
+    elif(scara_originala == 'F'):
+        if(scara_de_conversie == 'C'):
+            temperatura = (temperatura - 32) * 5/9 
+        elif(scara_de_conversie == 'K'):
+            temperatura = (temperatura - 32) * 5/9 + 273.15
+    return temperatura
+
+def test_get_temp():
+    assert get_temp(273.15, 'K', 'C') == 0
+    assert get_temp(15, 'C', 'F') == 59
+    assert get_temp(-364.27, 'F', 'K') == 53
+
 def main():
     test_get_leap_years()
     test_get_perfect_squares()
+    test_get_temp()
     print('1. Afiseaza toti anii bisecti intre doi ani dati (inclusiv anii dati)')
     print('2. Afiseaza toate patratele perfecte dintr-un interval inchis')
+    print('3. Converteste o temperatura dintr-o scara in alta')
     print('x. inchide aplicatia')
     optiune = input('Selectati actiunea dorita:')
     while optiune != 'x':
@@ -74,6 +100,14 @@ def main():
                 print(lista_pp_string)
             else:
                 print(f'Nu exista patrate perfecte in intervalul [{lim_inf} ,{lim_sup}]')
+        elif optiune == '3':
+            str_parametrii_get_temp = input('Introduceti separate printr-un spatiu: temperatura initiala, scara originala (K C sau F) si scara de conversie: ')
+            lista_parametrii_get_temp = str_parametrii_get_temp.split(' ')
+            temp_initiala = float(lista_parametrii_get_temp[0])
+            scara_originala = lista_parametrii_get_temp[1]
+            scara_de_conversie = lista_parametrii_get_temp[2]
+            temp_finala = get_temp(temp_initiala, scara_originala, scara_de_conversie)
+            print(f'Transformand {temp_initiala} grade {scara_originala} in grade {scara_de_conversie}, obtinem {temp_finala} grade {scara_de_conversie}')
         else:
             print('Optiune invalida!')
         optiune = input('Selectati actiunea dorita:')
